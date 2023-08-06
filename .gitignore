@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/GeometryAndShaderBasicsWithMonoGame/.config
+/GeometryAndShaderBasicsWithMonoGame/.vs/GeometryAndShaderBasicsWithMonoGame
+/GeometryAndShaderBasicsWithMonoGame/obj
+/GeometryAndShaderBasicsWithMonoGame/bin/Debug/net6.0
+/GeometryAndShaderBasicsWithMonoGame/Content/obj/DesktopGL/net6.0/Content
