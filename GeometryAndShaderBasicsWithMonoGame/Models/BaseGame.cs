@@ -18,12 +18,12 @@ namespace GeometryAndShaderBasicsWithMonoGame
         /// <summary>
         /// Speed we can move the camera about.
         /// </summary>
-        protected float _translateSpeed = .05f;
+        protected float _translateSpeed = .005f;
         
         /// <summary>
         /// Speed we can rotate the camera at.
         /// </summary>
-        protected float _rotateSpeed = .01f;
+        protected float _rotateSpeed = .001f;
 
         /// <summary>
         /// The camera
@@ -105,39 +105,41 @@ namespace GeometryAndShaderBasicsWithMonoGame
                     _eixtThisGameNow = true;
                 }
 
+                float deltaTime = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
                 // Camera controls.
                 if (_keyboardState.IsKeyDown(Keys.W))
-                    _camera.Transform.Position += Vector3.Transform(Vector3.Forward * _translateSpeed, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
+                    _camera.Transform.Position += Vector3.Transform(Vector3.Forward * _translateSpeed * deltaTime, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
                 if (_keyboardState.IsKeyDown(Keys.A))
-                    _camera.Transform.Position += Vector3.Transform(Vector3.Left * _translateSpeed, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
+                    _camera.Transform.Position += Vector3.Transform(Vector3.Left * _translateSpeed * deltaTime, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
                 if (_keyboardState.IsKeyDown(Keys.D))
-                    _camera.Transform.Position += Vector3.Transform(Vector3.Right * _translateSpeed, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
+                    _camera.Transform.Position += Vector3.Transform(Vector3.Right * _translateSpeed * deltaTime, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
                 if (_keyboardState.IsKeyDown(Keys.S))
-                    _camera.Transform.Position += Vector3.Transform(Vector3.Backward * _translateSpeed, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
+                    _camera.Transform.Position += Vector3.Transform(Vector3.Backward * _translateSpeed * deltaTime, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
 
                 Vector3 axis;
                 if (_keyboardState.IsKeyDown(Keys.Left))
                 {
                     axis = Vector3.Transform(Vector3.Up, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
-                    _camera.Transform.Rotation = Quaternion.Normalize(Quaternion.CreateFromAxisAngle(axis, _rotateSpeed) * _camera.Transform.Rotation);
+                    _camera.Transform.Rotation = Quaternion.Normalize(Quaternion.CreateFromAxisAngle(axis, _rotateSpeed * deltaTime) * _camera.Transform.Rotation);
                 }
 
                 if (_keyboardState.IsKeyDown(Keys.Right))
                 {
                     axis = Vector3.Transform(Vector3.Down, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
-                    _camera.Transform.Rotation = Quaternion.Normalize(Quaternion.CreateFromAxisAngle(axis, _rotateSpeed) * _camera.Transform.Rotation);
+                    _camera.Transform.Rotation = Quaternion.Normalize(Quaternion.CreateFromAxisAngle(axis, _rotateSpeed * deltaTime) * _camera.Transform.Rotation);
                 }
 
                 if (_keyboardState.IsKeyDown(Keys.Up))
                 {
                     axis = Vector3.Transform(Vector3.Right, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
-                    _camera.Transform.Rotation = Quaternion.Normalize(Quaternion.CreateFromAxisAngle(axis, _rotateSpeed) * _camera.Transform.Rotation);
+                    _camera.Transform.Rotation = Quaternion.Normalize(Quaternion.CreateFromAxisAngle(axis, _rotateSpeed * deltaTime) * _camera.Transform.Rotation);
                 }
 
                 if (_keyboardState.IsKeyDown(Keys.Down))
                 {
                     axis = Vector3.Transform(Vector3.Left, Matrix.CreateFromQuaternion(_camera.Transform.Rotation));
-                    _camera.Transform.Rotation = Quaternion.Normalize(Quaternion.CreateFromAxisAngle(axis, _rotateSpeed) * _camera.Transform.Rotation);
+                    _camera.Transform.Rotation = Quaternion.Normalize(Quaternion.CreateFromAxisAngle(axis, _rotateSpeed * deltaTime) * _camera.Transform.Rotation);
                 }
 
                 if (_keyboardState.IsKeyDown(Keys.F1) && _lastKeyboardState.IsKeyUp(Keys.F1))
