@@ -28,6 +28,7 @@ namespace GeometryAndShaderBasicsWithMonoGame
             Components.Add(cube);
 
             Window.Title = "Chapter 2";
+            BlogUrl = "https://bedroom-coder.blogspot.com/2023/08/geometry-shader-basics-geometry-in-code.html";
         }
 
         protected override void LoadContent()

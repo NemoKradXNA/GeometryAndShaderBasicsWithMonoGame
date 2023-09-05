@@ -3,7 +3,10 @@ using GeometryAndShaderBasicsWithMonoGame.Models.Cameras;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace GeometryAndShaderBasicsWithMonoGame
 {
@@ -53,6 +56,8 @@ namespace GeometryAndShaderBasicsWithMonoGame
         protected bool _exitGameConfirmed = false;
         protected bool _eixtThisGameNow = false;
 
+        protected string BlogUrl = "https://bedroom-coder.blogspot.com/";
+
         public BaseGame() : base()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -72,6 +77,7 @@ namespace GeometryAndShaderBasicsWithMonoGame
                 "Camera Rotation = Arrow Keys",
                 "F1 = Toggle Wire frame",
                 "F2 = Toggle CullMode",
+                "F12 = Goto Blog Page",
                 "Exit = Esc",
             };
 
@@ -103,6 +109,11 @@ namespace GeometryAndShaderBasicsWithMonoGame
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || _keyboardState.IsKeyDown(Keys.Escape))
                 {
                     _eixtThisGameNow = true;
+                }
+
+                if (_keyboardState.IsKeyDown(Keys.F12) && _lastKeyboardState.IsKeyUp(Keys.F12))
+                {
+                    GotoBlogUrl();
                 }
 
                 float deltaTime = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -170,6 +181,23 @@ namespace GeometryAndShaderBasicsWithMonoGame
             }
 
             base.Update(gameTime);
+        }
+
+        protected void GotoBlogUrl()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                BlogUrl = BlogUrl.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo(BlogUrl) { UseShellExecute = true });
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", BlogUrl);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", BlogUrl);
+            }
         }
 
         public void SetRasterizerState() 
